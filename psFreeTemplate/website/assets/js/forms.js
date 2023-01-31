@@ -1,212 +1,212 @@
-(function() {
+// (function() {
 
-	"use strict";
+// 	"use strict";
   
-	const app = {
+// 	const app = {
 		
-		init: function() {
+// 		init: function() {
 
-			app.setUpListeners();
+// 			app.setUpListeners();
 
-			app.textareaAutoSize.init();
+// 			app.textareaAutoSize.init();
 
-		},
+// 		},
 
-		DEFAULT_CONFIG: {
-			classTo: 'form-field',
-			errorClass: 'error',
-			successClass: 'success',
-			errorTextParent: 'form-field',
-			errorTextTag: 'div',
-			errorTextClass: 'error'
-		},
-		AJAX_URL: './assets/php/handle.php',
+// 		DEFAULT_CONFIG: {
+// 			classTo: 'form-field',
+// 			errorClass: 'error',
+// 			successClass: 'success',
+// 			errorTextParent: 'form-field',
+// 			errorTextTag: 'div',
+// 			errorTextClass: 'error'
+// 		},
+// 		AJAX_URL: './assets/php/handle.php',
  
-		setUpListeners: function() {
+// 		setUpListeners: function() {
 
-            $(".form-submission").on("submit", app.form);
+//             $(".form-submission").on("submit", app.form);
 
-            //=== Form fields ===\\
-			$(".form-field-input")
-				.each(app.formFields.default)
-				.on("focus", app.formFields.focus)
-				.on("blur", app.formFields.blur);
+//             //=== Form fields ===\\
+// 			$(".form-field-input")
+// 				.each(app.formFields.default)
+// 				.on("focus", app.formFields.focus)
+// 				.on("blur", app.formFields.blur);
 
-		},
+// 		},
 
-		form: function(e) {
+// 		form: function(e) {
 
-			e.preventDefault();
+// 			e.preventDefault();
 
-            var form = e.currentTarget;
+//             var form = e.currentTarget;
 
-            var pristine = new Pristine(form, app.DEFAULT_CONFIG),
-				valid = pristine.validate();
+//             var pristine = new Pristine(form, app.DEFAULT_CONFIG),
+// 				valid = pristine.validate();
 
-			if(valid) {
+// 			if(valid) {
 
-                $.ajax({
-                    type: "POST",
-                    url: ajaxurl,
-                    data: th.serialize()
-                }).done(function() {
+//                 $.ajax({
+//                     type: "POST",
+//                     url: ajaxurl,
+//                     data: th.serialize()
+//                 }).done(function() {
 
-                    //customAlert(text, duration, alertInfo) info = "success" || "danger" || "warning" || "default"
-                    app.customAlert("Successfully sent!", 4000, "success");
+//                     //customAlert(text, duration, alertInfo) info = "success" || "danger" || "warning" || "default"
+//                     app.customAlert("Successfully sent!", 4000, "success");
 
-                    form.trigger("reset");
-                    form.find(".form-field").removeClass("focus");
+//                     form.trigger("reset");
+//                     form.find(".form-field").removeClass("focus");
 
-                });
+//                 });
 
-			}
+// 			}
 
-		},
+// 		},
 
-        //=== Form fields ===\\
-		formFields: {
+//         //=== Form fields ===\\
+// 		formFields: {
 
-			default: function() {
+// 			default: function() {
 
-				var _this = $(this),
-					val = _this.val(),
-					tag = _this.prop("tagName").toLowerCase();
+// 				var _this = $(this),
+// 					val = _this.val(),
+// 					tag = _this.prop("tagName").toLowerCase();
 
-				if(tag === "input" || tag === "textarea") {
-					if (val === "") {
-						_this.closest('.form-field').removeClass("focus");
-					} else {
-						_this.closest('.form-field').addClass("focus");
-					}
-				}
+// 				if(tag === "input" || tag === "textarea") {
+// 					if (val === "") {
+// 						_this.closest('.form-field').removeClass("focus");
+// 					} else {
+// 						_this.closest('.form-field').addClass("focus");
+// 					}
+// 				}
 
-			},
+// 			},
 
-			focus: function() {
+// 			focus: function() {
 
-				var _this = $(this),
-					tag = _this.prop("tagName").toLowerCase();
+// 				var _this = $(this),
+// 					tag = _this.prop("tagName").toLowerCase();
 
-				if(tag === "input" || tag === "textarea") {
-					_this.closest('.form-field').addClass("focus");
-				}
+// 				if(tag === "input" || tag === "textarea") {
+// 					_this.closest('.form-field').addClass("focus");
+// 				}
 
-			},
+// 			},
 
-			blur: function() {
+// 			blur: function() {
 
-				var _this = $(this),
-					tag = _this.prop("tagName").toLowerCase();
+// 				var _this = $(this),
+// 					tag = _this.prop("tagName").toLowerCase();
 
-				if( ( tag === "input" || tag === "textarea" ) && _this.val() === "") {
-					_this.closest('.form-field').removeClass("focus");
-				}
+// 				if( ( tag === "input" || tag === "textarea" ) && _this.val() === "") {
+// 					_this.closest('.form-field').removeClass("focus");
+// 				}
 
-			},
+// 			},
 
-		},
+// 		},
 
-		textareaAutoSize: {
+// 		textareaAutoSize: {
 
-			init: function() {
+// 			init: function() {
 
-				var el = app.textareaAutoSize;
+// 				var el = app.textareaAutoSize;
 
-				el.target.forEach(function(item) {
+// 				el.target.forEach(function(item) {
 
-					item.style.overflow = 'hidden';
-					item.style.height = 'hidden';
+// 					item.style.overflow = 'hidden';
+// 					item.style.height = 'hidden';
 
-					el.observe(item, 'change',  el.resize);
-					el.observe(item, 'cut',     el.delayedResize);
-					el.observe(item, 'paste',   el.delayedResize);
-					el.observe(item, 'drop',    el.delayedResize);
-					el.observe(item, 'keydown', el.delayedResize);
+// 					el.observe(item, 'change',  el.resize);
+// 					el.observe(item, 'cut',     el.delayedResize);
+// 					el.observe(item, 'paste',   el.delayedResize);
+// 					el.observe(item, 'drop',    el.delayedResize);
+// 					el.observe(item, 'keydown', el.delayedResize);
 
-				});
+// 				});
 
-			},
+// 			},
 
-			target: document.querySelectorAll("textarea"),
+// 			target: document.querySelectorAll("textarea"),
 
-			observe: function (element, event, handler) {
+// 			observe: function (element, event, handler) {
 
-				element.addEventListener(event, handler);
+// 				element.addEventListener(event, handler);
 
-			},
+// 			},
 
-			resize: function() {
+// 			resize: function() {
 
-				app.textareaAutoSize.target.forEach(function(item) {
-					item.style.height = 'auto';
-					item.style.height = item.scrollHeight+1+'px';
-				});
+// 				app.textareaAutoSize.target.forEach(function(item) {
+// 					item.style.height = 'auto';
+// 					item.style.height = item.scrollHeight+1+'px';
+// 				});
 
-			},
+// 			},
 
-			delayedResize: function() {
+// 			delayedResize: function() {
 
-				window.setTimeout(app.textareaAutoSize.resize, 0);
+// 				window.setTimeout(app.textareaAutoSize.resize, 0);
 
-			}
+// 			}
 
-        },
+//         },
 
-        //=== Custom alert ===\\
-		customAlert: function(text, duration, alertInfo) {
+//         //=== Custom alert ===\\
+// 		customAlert: function(text, duration, alertInfo) {
 
-			var alerts = $(".alerts"),
-				body = $("body"),
-				alertClass = "",
-				alertIco = "info";
+// 			var alerts = $(".alerts"),
+// 				body = $("body"),
+// 				alertClass = "",
+// 				alertIco = "info";
 			
-			if (!alerts.length) {
-				body.append('<div class="alerts"></div>');
-			}
-			$(".alert").remove();
+// 			if (!alerts.length) {
+// 				body.append('<div class="alerts"></div>');
+// 			}
+// 			$(".alert").remove();
 
-			if (alertInfo === "success") {
-				alertClass = "alert-success";
-				alertIco = "check";
-			} else if (alertInfo === "danger") {
-				alertClass = "alert-danger";
-				alertIco = "error";
-			} else if (alertInfo === "warning") {
-				alertClass = "alert-warning";
-				alertIco = "warning";
-			} else if (alertInfo == "default") {
-				alertClass = "alert-default";
-				alertIco = "info";
-			}
+// 			if (alertInfo === "success") {
+// 				alertClass = "alert-success";
+// 				alertIco = "check";
+// 			} else if (alertInfo === "danger") {
+// 				alertClass = "alert-danger";
+// 				alertIco = "error";
+// 			} else if (alertInfo === "warning") {
+// 				alertClass = "alert-warning";
+// 				alertIco = "warning";
+// 			} else if (alertInfo == "default") {
+// 				alertClass = "alert-default";
+// 				alertIco = "info";
+// 			}
 
-			if (!$("." + alertClass + "").length) {
-				$(".alerts").append(
-				'<div class="alert ' +
-					alertClass +
-					'" data-duration-hide="' +
-					duration +
-					'"> <div class="alert-ico"> <i class="material-icons md-22">' +
-					alertIco +
-					'</i> </div> <div class="alert-text">' +
-					text +
-					"</div> </div>"
-				);
+// 			if (!$("." + alertClass + "").length) {
+// 				$(".alerts").append(
+// 				'<div class="alert ' +
+// 					alertClass +
+// 					'" data-duration-hide="' +
+// 					duration +
+// 					'"> <div class="alert-ico"> <i class="material-icons md-22">' +
+// 					alertIco +
+// 					'</i> </div> <div class="alert-text">' +
+// 					text +
+// 					"</div> </div>"
+// 				);
 
-				setTimeout(function() {
-					$("." + alertClass + "").remove();
-				}, duration);
-			}
+// 				setTimeout(function() {
+// 					$("." + alertClass + "").remove();
+// 				}, duration);
+// 			}
 
-			$(document).on("click", ".alert-close", function() {
-				$(this)
-				.closest(".alert")
-				.remove();
-			});
+// 			$(document).on("click", ".alert-close", function() {
+// 				$(this)
+// 				.closest(".alert")
+// 				.remove();
+// 			});
 
-		},
+// 		},
 		
-	}
+// 	}
  
-	app.init();
+// 	app.init();
  
-}());
+// }());
